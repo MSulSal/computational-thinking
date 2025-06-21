@@ -1,11 +1,21 @@
 #!/bin/bash
-
-# Download Julia binaries and install them
 JULIA_VERSION=1.9.3
+
+# Download Julia binaries
 wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-$JULIA_VERSION-linux-x86_64.tar.gz
-tar -xzf julia-$JULIA_VERSION-linux-x86_64.tar.gz
-mv julia-$JULIA_VERSION /opt/julia
-ln -s /opt/julia/bin/julia /usr/local/bin/julia
+
+# Extract to home directory
+tar -xzf julia-$JULIA_VERSION-linux-x86_64.tar.gz -C $HOME
+
+# Add Julia to PATH by appending to .bashrc or .bash_profile
+echo 'export PATH=$HOME/julia-'$JULIA_VERSION'/bin:$PATH' >> $HOME/.bashrc
+
+# Also export PATH for the current session
+export PATH=$HOME/julia-$JULIA_VERSION/bin:$PATH
+
+# Check Julia version to confirm install
+julia --version
+
 
 julia --project=. -e '
 using Pkg
