@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Download Julia binaries and install them
+JULIA_VERSION=1.9.3
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-$JULIA_VERSION-linux-x86_64.tar.gz
+tar -xzf julia-$JULIA_VERSION-linux-x86_64.tar.gz
+mv julia-$JULIA_VERSION /opt/julia
+ln -s /opt/julia/bin/julia /usr/local/bin/julia
+
 julia --project=. -e '
 using Pkg
 Pkg.instantiate()
